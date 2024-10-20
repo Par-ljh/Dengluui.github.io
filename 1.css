@@ -1,0 +1,84 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('OIP-C.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+form {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  animation: slideIn 1s ease forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+input {
+  width: calc(100% - 25px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* 注册界面样式 */
+#registerForm {
+  display: none;
+}
+
+a.registerLink {
+  color: blue;
+  cursor: pointer;
+}
+
+a.registerLink:hover {
+  text-decoration: underline;
+}
+
+#loginFailurePopup {
+  display: none;
+  position: absolute;
+  top: -50px; 
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  background-color: white; 
+  color: red;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  animation: popupSlideDown 0.5s ease forwards; 
+}
+
+@keyframes popupSlideDown {
+  0% {
+    top: -50px;
+  }
+
+  100% {
+    top: 0;
+  }
+}

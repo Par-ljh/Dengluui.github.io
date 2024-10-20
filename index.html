@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录页面</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('OIP-C.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    form {
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 1);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      animation: slideIn 1s ease forwards;
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    input {
+      width: calc(100% - 25px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    /* 注册界面样式 */
+    #registerForm {
+      display: none;
+    }
+
+    a.registerLink {
+      color: blue;
+      cursor: pointer;
+    }
+
+    a.registerLink:hover {
+      text-decoration: underline;
+    }
+
+    #loginFailurePopup {
+      display: none;
+      position: absolute;
+      top: -50px;  /* 初始时在页面上方隐藏 */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      background-color: white;  /* 背景改为白色 */
+      color: red;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      animation: popupSlideDown 0.5s ease forwards;  /* 添加动画效果 */
+    }
+
+    @keyframes popupSlideDown {
+      0% {
+        top: -50px;
+      }
+
+      100% {
+        top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <form id="loginForm" action="javascript:void(0);" onsubmit="login()">
+    <h2>登录</h2>
+    <input type="text" id="loginUsername" name="username" placeholder="用户名">
+    <input type="password" id="loginPassword" name="password" placeholder="密码">
+    <button type="submit">登录</button>
+    <p>还没有账号？ <a class="registerLink" onclick="showRegisterForm()">注册</a></p>
+  </form>
+
+  <form id="registerForm" action="javascript:void(0);" onsubmit="register()">
+    <h2>注册</h2>
+    <input type="text" id="registerUsername" placeholder="用户名">
+    <input type="password" id="registerPassword" placeholder="密码">
+    <input type="password" id="confirmPassword" placeholder="确认密码">
+    <button type="submit">注册</button>
+    <p>已有账号？ <a class="registerLink" onclick="showLoginForm()">登录</a></p>
+    <p id="usernameError" class="error"></p>
+    <p id="passwordError" class="error"></p>
+  </form>
+
+  <div id="loginFailurePopup">登录失败，请检查用户名和密码！</div>
+
+  <script>
+    // 预设的有效账号
+    const validUsers = {
+      "user1": "pass1",
+      "user2": "pass2"
+    };
+
+    function showRegisterForm() {
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('registerForm').style.display = 'block';
+    }
+
+    function showLoginForm() {
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('registerForm').style.display = 'none';
+    }
+
+    function login() {
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+
+      if (validUsers[username] === password) {
+        window.location.href = 'https://space.bilibili.com/3546587571686054?spm_id_from=333.1007.0.0';
+      } else {
+        document.getElementById('loginFailurePopup').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('loginFailurePopup').style.display = 'none';
+        }, 3000); 
+      }
+    }
+
+    function register() {
+      const username = document.getElementById('registerUsername').value;
+      const password = document.getElementById('registerPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // 检查用户名是否重复
+      if (validUsers[username]) {
+        document.getElementById('usernameError').innerHTML = '该用户名已存在，请选择其他用户名！';
+        return;
+      } else {
+        document.getElementById('usernameError').innerHTML = '';
+      }
+
+      // 检查密码是否符合要求
+      if (password.length < 4 ||!/[a-zA-Z]/.test(password) ||!/\d/.test(password)) {
+        document.getElementById('passwordError').innerHTML = '密码至少 4 位且必须包含字母和数字！';
+        return;
+      } else {
+        document.getElementById('passwordError').innerHTML = '';
+      }
+
+      // 检查两次输入的密码是否一致
+      if (password!== confirmPassword) {
+        alert('两次输入的密码不一致！');
+        return;
+      }
+
+      validUsers[username] = password;
+      alert('注册成功！');
+      showLoginForm();
+    }
+  </script>
+</body>
+
+</html>

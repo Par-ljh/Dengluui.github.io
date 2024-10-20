@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    // 获取 URL 中的参数
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // 检查用户名和密码是否存在
+    const username = urlParams.get('username');
+    const password = urlParams.get('password');
+
+    // 假设正确的用户名是 "admin"，密码是 "123456"
+    if (username === 'admin' && password === '123456') {
+      window.location.href = 'https://space.bilibili.com/3546587571686054?spm_id_from=333.1007.0.0';
+    } else {
+      alert('登录失败，请检查用户名和密码！');
+    }
+  </script>
+</head>
+
+<body>
+</body>
+
+</html>
